@@ -1,0 +1,31 @@
+<h1>Post Details</h1>
+
+<p><strong>Author:</strong> <%= @post.user.username %></p>
+<p><strong>Content:</strong> <%= @post.content %></p>
+
+<hr>
+
+<h2>Comments</h2>
+
+<% if @comments.any? %>
+  <% @comments.each do |comment| %>
+    <div class="comment">
+      <p><strong><%= comment.user.username %>:</strong> <%= comment.content %></p>
+    </div>
+  <% end %>
+<% else %>
+  <p>No comments yet. Be the first to comment!</p>
+<% end %>
+
+<hr>
+
+<h3>Add a Comment</h3>
+<%= form_with model: [@post, Comment.new], local: true do |form| %>
+  <div>
+    <%= form.label :content, "Your Comment" %>
+    <%= form.text_area :content %>
+  </div>
+  <%= form.submit "Post Comment" %>
+<% end %>
+
+<%= link_to "Back to All Posts", posts_path %>

@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>TwitterClone</title>
+  <%= csrf_meta_tags %>
+  <%= csp_meta_tag %>
+
+  <%= stylesheet_link_tag 'application', media: 'all', 'data-turbo-track': 'reload' %>
+  <%= javascript_importmap_tags %>
+</head>
+
+<body>
+  <header>
+    <nav>
+      <%= link_to "Home", root_path %> |
+      <% if current_user %>
+        <%= link_to "New Post", new_post_path %> |
+        <%= link_to "Logout", logout_path, method: :delete, data: { confirm: "Are you sure you want to log out?" } %>
+      <% else %>
+        <%= link_to "Login", login_path %>
+      <% end %>
+    </nav>
+  </header>
+
+  <% if flash[:notice] %>
+    <div class="flash notice">
+      <%= flash[:notice] %>
+    </div>
+  <% end %>
+
+  <% if flash[:alert] %>
+    <div class="flash alert">
+      <%= flash[:alert] %>
+    </div>
+  <% end %>
+
+  <main>
+    <%= yield %>
+  </main>
+
+</body>
+</html>
